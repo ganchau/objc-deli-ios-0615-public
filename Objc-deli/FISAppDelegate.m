@@ -10,6 +10,39 @@
 
 @implementation FISAppDelegate
 
+- (NSMutableArray *)takeANumberWithDeliLine:(NSMutableArray *)deliLine
+                                       Name:(NSString *)customer
+{
+    [deliLine addObject:customer];
+    NSLog(@"%li", [deliLine count]);
+    return deliLine;
+}
+
+- (NSMutableArray *)nowServingWithDeliLine:(NSMutableArray *)deliLine
+{
+    if ([deliLine lastObject] != nil) {
+        NSLog(@"%@", deliLine[0]);
+        [deliLine removeObjectAtIndex:0];
+    } else {
+        NSLog(@"There is nobody waiting to be served!");
+    }
+    return deliLine;
+}
+
+- (NSString *)deliLine:(NSMutableArray *)deliLine
+{
+    if ([deliLine lastObject] != nil) {
+        NSString *currentLine = @"The line is currently:";
+        for (int i=0; i<[deliLine count]; i++) {
+            currentLine = [currentLine stringByAppendingString:[NSString stringWithFormat:@" %i. %@", i+1, deliLine[i]]];
+        }
+        NSLog(@"%@", currentLine);
+        return currentLine;
+    } else {
+        return @"The line is empty";
+    }
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
